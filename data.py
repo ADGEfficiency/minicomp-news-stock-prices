@@ -1,3 +1,4 @@
+import argparse
 from collections import namedtuple
 import os
 import zipfile
@@ -5,7 +6,8 @@ import zipfile
 import pandas as pd
 import numpy as np
 
-def process_csv(filename, train_end='2014-11-20', test_start='2014-11-21'):
+
+def process_csv(filename, train_end='2014-11-20', test_start='2014-12-03'):
     df = pd.read_csv('./data/raw/'+filename+'.csv', parse_dates=True)
     df = df.set_index('Date', drop=True)
     df = df.sort_index()
@@ -14,7 +16,6 @@ def process_csv(filename, train_end='2014-11-20', test_start='2014-11-21'):
     test = df.loc[test_start:, :]
 
     assert train.shape[0] > test.shape[0]
-    # assert train.shape[0] + test.shape[0] == df.shape[0]
     return Data(filename, train, test)
 
 
@@ -33,7 +34,6 @@ def mask_training_data(data):
 
 
 if __name__ == '__main__':
-    import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--test', default=0, nargs='?')
     args = parser.parse_args()
