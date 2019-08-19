@@ -15,6 +15,16 @@ def process_csv(filename, train_end='2014-11-20', test_start='2014-12-03'):
     train = df.loc[:train_end, :]
     test = df.loc[test_start:, :]
 
+    try:
+        test = test.drop('label', axis=1)
+    except KeyError:
+        pass
+
+    try:
+        test = test.drop('Label', axis=1)
+    except KeyError:
+        pass
+
     assert train.shape[0] > test.shape[0]
     return Data(filename, train, test)
 
@@ -69,4 +79,4 @@ if __name__ == '__main__':
 
         if bool(int(args.test)):
             os.makedirs('./data/test', exist_ok=True)
-            d.test.to_csv('./data/test/{}_train.csv'.format(d.name))
+            d.test.to_csv('./data/test/{}_test.csv'.format(d.name))
