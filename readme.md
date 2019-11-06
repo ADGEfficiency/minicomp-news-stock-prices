@@ -1,4 +1,4 @@
-## Stock market prediction from news headlines
+# Stock market prediction from news headlines
 
 `Sun, J. (2016, August). Daily News for Stock Market Prediction, Version 1. Retrieved 2019-08-19 from https://www.kaggle.com/aaron7sun/stocknews`
 
@@ -33,13 +33,11 @@ unzip data/stocknews.zip -d data
 python data.py
 ```
 
-This dataset is unclean & untrusted - be cautious!  Some data is duplicated across the three csvs.  I have randomly dropped data at a rate of 5% for all the csvs.
-
 The data is split:
 - training - 2008-06-08 to 2014-11-20
 - test - 2014-12-03 to 2016-07-01
 
-The test data is the same as the train except the two `label` columns are removed.  The test data will be generated only at test time, by running:
+The test data is the same as the train except the two `label` columns are removed.  **The test data should be generated only at test time**, by running:
 
 ```python
 python data.py --test 1
@@ -54,9 +52,10 @@ An NLP approach - use the headlines to generate features (word counts etc):
 - a good starting point is a bag of words approach (use the `CountVectorizer` and/or `TfidfVectorizer` from `sklearn`)
 - you can then move to an `n-gram` approach (looking at groups on `n` words)
 
-Use previous values of the series + other series:
+A time series approach - use previous values of the series + other series:
 - think about how many previous values you will have at test time
 - taking the log is useful to turn a multiplicative process (such as accumulating stock prices) into an additive process
 - standardization/normalization
  
-Use datetime features (day of week etc).
+A time feature approach 
+- use datetime features (day of week etc)
