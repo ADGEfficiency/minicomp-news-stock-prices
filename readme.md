@@ -31,13 +31,18 @@ The data is supplied as three csvs.  The raw data is in `./data/stocknews.zip`. 
 ```bash
 unzip data/stocknews.zip -d data
 python data.py
+rm -rf data/raw
 ```
+
+You should only ever use the data in `./data/train` for training.
 
 The data is split:
 - training - 2008-06-08 to 2014-11-20
 - test - 2014-12-03 to 2016-07-01
 
-The test data is the same as the train except the two `label` columns are removed.  **The test data should be generated only at test time**, by running:
+### Test time data
+
+You will only get `RedditNews` and `Combined_News_DJIA_train`.  Generate the data using the command below - run only a test time!
 
 ```python
 python data.py --test 1
@@ -51,6 +56,7 @@ An NLP approach - use the headlines to generate features (word counts etc):
 - data cleaning (such as `.lower()`)
 - a good starting point is a bag of words approach (use the `CountVectorizer` and/or `TfidfVectorizer` from `sklearn`)
 - you can then move to an `n-gram` approach (looking at groups on `n` words)
+- a more complex approach might involve word embeddings
 
 A time series approach - use previous values of the series + other series:
 - think about how many previous values you will have at test time
